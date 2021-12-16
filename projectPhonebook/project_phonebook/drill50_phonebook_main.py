@@ -29,8 +29,9 @@
 
 
 from tkinter import *
-import tkinter as tk
 from tkinter import messagebox
+import tkinter as tk
+
 
 
 # Be sure to import our other modules 
