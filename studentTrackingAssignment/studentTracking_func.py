@@ -49,7 +49,8 @@ def create_db(self):
             col_lname TEXT, \
             col_fullname TEXT, \
             col_phone TEXT, \
-            col_email TEXT \
+            col_email TEXT, \
+            col_course TEXT \
             );")
         # You must commit() to save changes & close the database connection
         conn.commit()
@@ -82,8 +83,8 @@ import tkinter as tk
 
 # Be sure to import our other modules 
 # so we can have access to them
-import drill50_phonebook_main
-import drill50_phonebook_func
+import studentTracking_main
+import studentTracking_func
 
 
 
@@ -124,16 +125,16 @@ def load_gui(self):
     #Define the listbox with a scrollbar and grid them
     self.scrollbar1 = Scrollbar(self.master,orient=VERTICAL)
     self.lstList1 = Listbox(self.master,exportselection=0,yscrollcommand=self.scrollbar1.set)
-    self.lstList1.bind('<<ListboxSelect>>',lambda event: drill50_phonebook_func.onSelect(self,event))
+    self.lstList1.bind('<<ListboxSelect>>',lambda event: studentTracking_func.onSelect(self,event))
     self.scrollbar1.config(command=self.lstList1.yview)
     self.scrollbar1.grid(row=1,column=5,rowspan=7,columnspan=1,padx=(0,0),pady=(0,0),sticky=N+E+S)
     self.lstList1.grid(row=1,column=2,rowspan=7,columnspan=3,padx=(0,0),pady=(0,0),sticky=N+E+S+W)
     
-    self.btn_add = tk.Button(self.master,width=12,height=2,text='Add',command=lambda: drill50_phonebook_func.addToList(self))
+    self.btn_add = tk.Button(self.master,width=12,height=2,text='Add',command=lambda: studentTracking_func.addToList(self))
     self.btn_add.grid(row=8,column=0,padx=(25,0),pady=(45,10),sticky=W)
-    self.btn_delete = tk.Button(self.master,width=12,height=2,text='Delete',command=lambda: drill50_phonebook_func.onDelete(self))
+    self.btn_delete = tk.Button(self.master,width=12,height=2,text='Delete',command=lambda: studentTracking_func.onDelete(self))
     self.btn_delete.grid(row=8,column=2,padx=(15,0),pady=(45,10),sticky=W)
-    self.btn_close = tk.Button(self.master,width=12,height=2,text='Close',command=lambda: drill50_phonebook_func.ask_quit(self))
+    self.btn_close = tk.Button(self.master,width=12,height=2,text='Close',command=lambda: studentTracking_func.ask_quit(self))
     self.btn_close.grid(row=8,column=4,columnspan=1,padx=(15,0),pady=(45,10),sticky=E)
 
     studentTracking_func.create_db(self)
@@ -156,7 +157,7 @@ def onSelect(self,event):
     conn = sqlite3.connect('students_db.db')
     with conn:
         cursor = conn.cursor()
-        cursor.execute("""SELECT col_fname,col_lname,col_phone,col_email FROM tbl_students WHERE col_fullname = (?)""", [value])
+        cursor.execute("""SELECT col_fname,col_lname,col_phone,col_email,col_course FROM tbl_students WHERE col_fullname = (?)""", [value])
         varBody = cursor.fetchall()
         # This returns a tuple and we can slice it into 4 parts using data[] during the iteration
         for data in varBody:
@@ -168,6 +169,8 @@ def onSelect(self,event):
             self.txt_phone.insert(0,data[2])
             self.txt_email.delete(0,END)
             self.txt_email.insert(0,data[3])
+            self.txt_course.delete(0,END)
+            self.txt_course.insert(0,data[4])
 
 
 def addToList(self):
@@ -178,13 +181,14 @@ def addToList(self):
     var_lname = var_lname.strip() # This will ensure that the first character in each word is capitalized
     var_fname = var_fname.title()
     var_lname = var_lname.title()
+    var_course = var_course.title()
     var_fullname = ("{} {}".format(var_fname,var_lname)) # combine our normailzed names into a fullname
     print("var_fullname: {}".format(var_fullname))
     var_phone = self.txt_phone.get().strip()
     var_email = self.txt_email.get().strip()
     if not "@" or not "." in var_email: # will use this soon
         print("Incorrect email format!!!")
-    if (len(var_fname) > 0) and (len(var_lname) > 0) and (len(var_phone) > 0) and(len(var_email) > 0): # enforce the user to provide both names
+    if (len(var_fname) > 0) and (len(var_lname) > 0) and (len(var_phone) > 0) and(len(var_email) > 0) and(len(var_course) > 0): # enforce the user to provide both names
         conn = sqlite3.connect('students_db.db')
         with conn:
             cursor = conn.cursor()
@@ -236,6 +240,7 @@ def onDeleted(self):
     self.txt_lname.delete(0,END)
     self.txt_phone.delete(0,END)
     self.txt_email.delete(0,END)
+    self.txt_course.delete(0,END)
 ##    onRefresh(self) # update the listbox of the changes
     try:
         index = self.lstList1.curselection()[0]
@@ -249,6 +254,7 @@ def onClear(self):
     self.txt_lname.delete(0,END)
     self.txt_phone.delete(0,END)
     self.txt_email.delete(0,END)
+    self.txt_course.delete(0,END)
     
 
 def onRefresh(self):
