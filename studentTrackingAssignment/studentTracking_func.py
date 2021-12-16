@@ -105,7 +105,7 @@ def load_gui(self):
     self.lbl_email = tk.Label(self.master,text='Email Address:')
     self.lbl_email.grid(row=6,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
     self.lbl_course = tk.Label(self.master,text='Current Course:')
-    self.lbl_course.grid(row=8,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
+    self.lbl_course.grid(row=9,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
     self.lbl_info = tk.Label(self.master,text='Information:')
     self.lbl_info.grid(row=0,column=2,padx=(0,0),pady=(10,0),sticky=N+W)
 
@@ -159,6 +159,8 @@ def onSelect(self,event):
         cursor = conn.cursor()
         cursor.execute("""SELECT col_fname,col_lname,col_phone,col_email,col_course FROM tbl_students WHERE col_fullname = (?)""", [value])
         varBody = cursor.fetchall()
+        #print('HERE IS YOUR DESIRED INFO')
+        #print(varBody)
         # This returns a tuple and we can slice it into 4 parts using data[] during the iteration
         for data in varBody:
             self.txt_fname.delete(0,END)
@@ -176,12 +178,12 @@ def onSelect(self,event):
 def addToList(self):
     var_fname = self.txt_fname.get()
     var_lname = self.txt_lname.get()
+    var_course = self.txt_course.get()
     # normalize the data to keep it consistent in the database
     var_fname = var_fname.strip() # This will remove any blank spaces before and after the user's entry
     var_lname = var_lname.strip() # This will ensure that the first character in each word is capitalized
     var_fname = var_fname.title()
     var_lname = var_lname.title()
-    var_course = var_course.title()
     var_fullname = ("{} {}".format(var_fname,var_lname)) # combine our normailzed names into a fullname
     print("var_fullname: {}".format(var_fullname))
     var_phone = self.txt_phone.get().strip()
@@ -273,50 +275,6 @@ def onRefresh(self):
                     self.lstList1.insert(0,str(item))
                     i = i + 1
     conn.close()
-
-
-def onUpdate(self):
-    try:
-        var_select = self.lstList1.curselection()[0] # index of the list selection
-        var_value = self.lstList1.get(var_select) # list selection's text value
-    except:
-        messagebox.showinfo("Missing selection","No name was selected from the list box. \nCancelling the Update request.")
-        return
-    # The user will only be alowed to update changes for phone and emails.
-    # For name changes, the user will need to delete the entire record and start over.
-    var_phone = self.txt_phone.get().strip() # normalize the data to maintain database integrity
-    var_email = self.txt_email.get().strip()
-    if (len(var_phone) > 0) and (len(var_email) > 0): # ensure that there is data present
-        conn = sqlite3.connect('students_db.db')
-        with conn:
-            cur = conn.cursor()
-            # count records to see if the user's changes are already in
-            # the database...meaning, there are no changes to update.
-            cur.execute("""SELECT COUNT(col_phone) FROM tbl_students WHERE col_phone = '{}'""".format(var_phone))
-            count = cur.fetchone()[0]
-            print(count)
-            cur.execute("""SELECT COUNT(col_email) FROM tbl_students WHERE col_email = '{}'""".format(var_email))
-            count2 = cur.fetchone()[0]
-            print(count2)
-            if count == 0 or count2 == 0: # if proposed changes are not already in the database, then proceed
-                response = messagebox.askokcancel("Update Request","The following changes ({}) and ({}) will be implemented for ({}). \n\nProceed with the update request?".format(var_phone,var_email,var_value))
-                print(response)
-                if response:
-                    #conn = sqlite3.connect('db_phonebook.db')
-                    with conn:
-                        cursor = conn.cursor()
-                        cursor.execute("""UPDATE tbl_students SET col_phone = '{0}',col_email = '{1}' WHERE col_fullname = '{2}'""".format(var_phone,var_email,var_value))
-                        onClear(self)
-                        conn.commit()
-                else:
-                    messagebox.showinfo("Cancel request","No changes have been made to ({}).".format(var_value))
-            else:
-                messagebox.showinfo("No changes detected","Both ({}) and ({}) \nalready exist in the database for this name. \n\nYour update request has been cancelled.".format(var_phone, var_email))
-            onClear(self)
-        conn.close()
-    else:
-        messagebox.showerror("Missing information","Please select a name from the list. \nThen edit the phone or email information.")
-    onClear(self)
 
 
 if __name__ == "__main__":

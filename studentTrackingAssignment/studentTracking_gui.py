@@ -35,7 +35,7 @@ def load_gui(self):
     self.lbl_email = tk.Label(self.master,text='Email Address:')
     self.lbl_email.grid(row=6,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
     self.lbl_course = tk.Label(self.master,text='Current Course:')
-    self.lbl_course.grid(row=7,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
+    self.lbl_course.grid(row=8,column=0,padx=(27,0),pady=(10,0),sticky=N+W)
     self.lbl_info = tk.Label(self.master,text='Information:')
     self.lbl_info.grid(row=0,column=2,padx=(0,0),pady=(10,0),sticky=N+W)
 
@@ -61,11 +61,11 @@ def load_gui(self):
     self.lstList1.grid(row=1,column=2,rowspan=7,columnspan=3,padx=(0,0),pady=(0,0),sticky=N+E+S+W)
     
     self.btn_add = tk.Button(self.master,width=12,height=2,text='Add',command=lambda: studentTracking_func.addToList(self))
-    self.btn_add.grid(row=8,column=0,padx=(25,0),pady=(85,10),sticky=W)
+    self.btn_add.grid(row=10,column=0,padx=(15,0),pady=(65,10),sticky=W)
     self.btn_delete = tk.Button(self.master,width=12,height=2,text='Delete',command=lambda: studentTracking_func.onDelete(self))
-    self.btn_delete.grid(row=8,column=2,padx=(15,0),pady=(85,10),sticky=W)
+    self.btn_delete.grid(row=10,column=2,padx=(15,0),pady=(65,10),sticky=W)
     self.btn_close = tk.Button(self.master,width=12,height=2,text='Close',command=lambda: studentTracking_func.ask_quit(self))
-    self.btn_close.grid(row=8,column=4,columnspan=1,padx=(15,0),pady=(85,10),sticky=E)
+    self.btn_close.grid(row=10,column=4,columnspan=1,padx=(15,0),pady=(65,10),sticky=E)
 
     studentTracking_func.create_db(self)
     studentTracking_func.onRefresh(self)
