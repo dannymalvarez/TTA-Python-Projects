@@ -76,5 +76,5 @@ if __name__ == '__main__':
 
     bacteria = Bacterium()
     print(bacteria.information())
-    print(bacteria.replication())
+    print(bacteria)
     
