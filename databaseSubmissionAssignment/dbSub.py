@@ -3,7 +3,8 @@ import os
 
 path = '/users/danielalvarez/documents/Github/TTA-Python-Projects/databaseSubmissionAssignment'
 finPath = os.listdir(path)
-
+print(finPath)
+'''
 info = ()
 infoList = list(info)
 for name in finPath:
@@ -45,4 +46,4 @@ with open(file2,'r') as b:
     output2 = b.read()
     b.close()
 print(output2)
-
+'''
