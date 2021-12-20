@@ -23,10 +23,10 @@ class ParentWindow(Frame):
         
         self.varEmpty2.set('')
 
-        self.txtEmpty1 = tk.Entry(self.master,text=self.varEmpty1,font=("Helvetica", 28),fg='lightgray',bg='white')
+        self.txtEmpty1 = tk.Entry(self.master,text=self.varEmpty1,font=("Helvetica", 28),fg='black',bg='white')
         self.txtEmpty1.grid(row=0,column=1,padx = (0,20),pady=(30,0),columnspan=2,sticky=tk.E+W)
 
-        self.txtEmpty2 = tk.Entry(self.master,text=self.varEmpty2,font=("Helvetica", 28),fg='lightgray',bg='white')
+        self.txtEmpty2 = tk.Entry(self.master,text=self.varEmpty2,font=("Helvetica", 28),fg='black',bg='white')
         self.txtEmpty2.grid(row=1,column=1,padx = (0,20),pady=(15,0),columnspan=2,sticky=tk.E+W)
 
         self.button1 = tk.Button(self.master, text = "Browse...", width = 10,height=2)
@@ -37,21 +37,21 @@ class ParentWindow(Frame):
         b2 = self.button2
         b2.grid(row = 1, column = 0,padx=(20,0),pady=(20,0),sticky=tk.W)
     
-        self.button3 = tk.Button( self.master, text = "Check for files...", width = 10, height = 3,command = self.callback())
+        self.button3 = tk.Button(self.master, text = "Check for files...", width = 10, height = 3,command = self.callback)
         b3 = self.button3
         b3.grid(row = 2, column = 0,padx=(20,0),pady=(20,0),sticky=tk.W)
 
-        self.button4 = tk.Button( self.master, text = "Close Program", width = 10, height = 3)
+        self.button4 = tk.Button(self.master, text = "Close Program", width = 10, height = 3,command = self.close)
         b4 = self.button4
         b4.grid(row = 2, column = 2,padx = (0,20),pady=(20,0),sticky=tk.E)
 
     def callback(self):
-        name = fd.askopenfilename() 
+        name = fd.askdirectory() 
         self.varEmpty1.set(name)
 
 
-
-    
+    def close(self):
+        self.destroy()
         
 if __name__ == '__main__':
     root = Tk()
