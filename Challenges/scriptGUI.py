@@ -1,47 +1,49 @@
 
 import tkinter as tk
 from tkinter import *
-#from tkinter import ttk
+from tkinter import ttk
 
 class ParentWindow(Frame):
     def __init__ (self,master):
         Frame.__init__ (self)
 
         self.master = master
-        self.master.minsize(500,200)
-        self.master.maxsize(500,200)
+        self.master.minsize(600,250)
+        self.master.maxsize(600,250)
         self.master.title("Check files")
         self.master.configure(bg="#F0F0F0")
 
-        self.varEmpty1 = StringVar()
-        self.varEmpty2 = StringVar()
+        #configuring the grid
+        self.master.columnconfigure(0, weight=1)
+        self.master.columnconfigure(1, weight=3)
+        
+        
+        self.varEmpty1 = tk.StringVar()
+        self.varEmpty2 = tk.StringVar()
         self.varEmpty1.set('')
         self.varEmpty2.set('')
 
-        self.master.grid_columnconfigure(0, weight=1)
-        self.master.grid_rowconfigure(0, weight=1)
+        self.txtEmpty1 = tk.Entry(self.master,text=self.varEmpty1,font=("Helvetica", 28),fg='lightgray',bg='white')
+        self.txtEmpty1.grid(row=0,column=1,padx = (0,20),pady=(30,0),columnspan=2,sticky=tk.E+W)
 
-        self.txtEmpty1 = Entry(self.master,text=self.varEmpty1,font=("Helvetica", 16),fg='black',bg='white')
-        self.txtEmpty1.grid(row=0,column=1)
+        self.txtEmpty2 = tk.Entry(self.master,text=self.varEmpty2,font=("Helvetica", 28),fg='lightgray',bg='white')
+        self.txtEmpty2.grid(row=1,column=1,padx = (0,20),pady=(15,0),columnspan=2,sticky=tk.E+W)
 
-        self.txtEmpty2 = Entry(self.master,text=self.varEmpty2,font=("Helvetica", 16),fg='black',bg='white')
-        self.txtEmpty2.grid(row=1,column=1,columnspan = 3)
-
-        self.button1 = Button(self.master, text = "Browse...", width = 10)
+        self.button1 = tk.Button(self.master, text = "Browse...", width = 10,height=2)
         b1 = self.button1
-        b1.grid(row = 0, column = 0)
+        b1.grid(row = 0, column = 0,padx=(20,0),pady=(30,0),sticky=tk.W)
 
-        self.button2 = Button( self.master, text = "Browse...", width = 10)
+        self.button2 = tk.Button( self.master, text = "Browse...", width = 10,height=2)
         b2 = self.button2
-        b2.grid(row = 1, column = 0)
+        b2.grid(row = 1, column = 0,padx=(20,0),pady=(20,0),sticky=tk.W)
         
-        self.button3 = Button( self.master, text = "Check for files...", width = 10, height = 2)
+        self.button3 = tk.Button( self.master, text = "Check for files...", width = 10, height = 3)
         b3 = self.button3
-        b3.grid(row = 2, column = 0)
+        b3.grid(row = 2, column = 0,padx=(20,0),pady=(20,0),sticky=tk.W)
 
-        self.button4 = Button( self.master, text = "Close Program", width = 10, height = 2, command=self.close_window)
+        self.button4 = tk.Button( self.master, text = "Close Program", width = 10, height = 3, command = self.close_window)
         b4 = self.button4
-        b4.grid(row = 2, column = 4)
+        b4.grid(row = 2, column = 2,padx = (0,20),pady=(20,0),sticky=tk.E)
 
     def close_window(self):
         self.destroy()
