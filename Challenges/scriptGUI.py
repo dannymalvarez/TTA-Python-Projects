@@ -1,55 +1,67 @@
 
 import tkinter as tk
 from tkinter import *
-from tkinter import ttk
+#from tkinter import ttk
 
-class ParentWindow( Frame ):
-    def __init__(self,master,*args,**kwargs):
-        Frame.__init__(self,master,*args,**kwargs)
+class ParentWindow(Frame):
+    def __init__ (self,master):
+        Frame.__init__ (self)
+
         self.master = master
-        
         self.master.minsize(500,200)
         self.master.maxsize(500,200)
         self.master.title("Check files")
         self.master.configure(bg="#F0F0F0")
-        arg = self.master
-        self.pack(side = LEFT)
-        
-        self.button1 = Button( self, text = "Browse...", width = 10)
+
+        self.varEmpty1 = StringVar()
+        self.varEmpty2 = StringVar()
+        self.varEmpty1.set('')
+        self.varEmpty2.set('')
+
+        self.master.grid_columnconfigure(0, weight=1)
+        self.master.grid_rowconfigure(0, weight=1)
+
+        self.txtEmpty1 = Entry(self.master,text=self.varEmpty1,font=("Helvetica", 16),fg='black',bg='white')
+        self.txtEmpty1.grid(row=0,column=1)
+
+        self.txtEmpty2 = Entry(self.master,text=self.varEmpty2,font=("Helvetica", 16),fg='black',bg='white')
+        self.txtEmpty2.grid(row=1,column=1,columnspan = 3)
+
+        self.button1 = Button(self.master, text = "Browse...", width = 10)
         b1 = self.button1
-        b1.pack(side = LEFT)
         b1.grid(row = 0, column = 0)
-        
-        
-        self.button2 = Button( self, text = "Browse...", width = 10)
+
+        self.button2 = Button( self.master, text = "Browse...", width = 10)
         b2 = self.button2
         b2.grid(row = 1, column = 0)
         
-        self.button3 = Button( self, text = "Check for files...", width = 10, height = 2)
+        self.button3 = Button( self.master, text = "Check for files...", width = 10, height = 2)
         b3 = self.button3
         b3.grid(row = 2, column = 0)
 
-        self.button4 = Button( self, text = "Close Program", width = 10, height = 2)
-        ''', command=self.close_window'''
+        self.button4 = Button( self.master, text = "Close Program", width = 10, height = 2, command=self.close_window)
         b4 = self.button4
-        b4.grid(row = 2, column = 3)
+        b4.grid(row = 2, column = 4)
 
+    def close_window(self):
+        self.destroy()
+        
+        '''
+        
+        
+        
 
-def load_gui(self):
-    self.txt_fname = tk.Entry(self.master,text='')
-    self.txt_fname.grid(row=1,column=2,columnspan=8,padx=(30,40),pady=(0,0),sticky=N+E+W)
+     
+
+    #def load_gui (self):
+     #   self.txt_fname = tk.Entry(self.master,text='')
+      #  self.txt_fname.grid(row=1,column=2,columnspan=8,padx=(30,40),pady=(0,0),sticky=N+E+W)
        
 
-   # def close_window(self):
-#        self.destroy()     
-        
-
-        
-
-
+      '''
 
 if __name__ == '__main__':
-    root = tk.Tk()
+    root = Tk()
     App = ParentWindow(root)
     root.mainloop()
 
