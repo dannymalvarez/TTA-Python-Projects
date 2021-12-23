@@ -1,0 +1,2 @@
+I still love Python!
+Hello world, it's Daniel!

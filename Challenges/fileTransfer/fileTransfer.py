@@ -26,7 +26,8 @@ for i in files:
     modTimeYear = modTimeObj.strftime("%Y")
 
     if currentYear == modTimeYear and currentMonth == modTimeMonth and currentDay == modTimeDay and currentHour and modTimeHour:
-        print(i + ' was modified this year, this month, today, at ' + modTimeHour + ' O\'clock.')
+        print(i + ' was created/modified within 24 hours and has been moved to the \'Receive\' folder.')
+        shutil.move(source+i,destination)
 
 
     
