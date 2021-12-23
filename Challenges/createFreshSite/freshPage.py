@@ -1,6 +1,7 @@
 
 import tkinter
 from tkinter import *
+from tkinter import filedialog as fd 
 import webbrowser as w
 import os
      
@@ -11,6 +12,7 @@ place = '/Users/danielalvarez/Documents/GitHub/TTA-Python-Projects/Challenges/cr
 placeCheck = os.listdir(place)
 abPath = os.path.join(place,go)
 final = 'file://' + abPath
+
 
 
 if go in placeCheck:
@@ -24,17 +26,19 @@ else:
             Frame.__init__ (self)
 
             self.master = master
+            self.master.minsize(600,250)
+            self.master.maxsize(600,250)
             self.master.title('What would you like the page to display?')
             self.master.config(bg='lightgray')
-              
 
             self.siteInput = StringVar()
 
-            self.lblsiteInput = Label(self.master,text='Type here: ', font=('Helvetica',16),fg='black',bg='lightgray' )
-            self.lblsiteInput.grid(row=0,column=0,padx=(30,0),pady=(30,0))
+
+            self.lblsiteInput = Label(self.master,text='Display Content: ', font=('Helvetica',16),fg='black',bg='lightgray' )
+            self.lblsiteInput.grid(row=1,column=0,padx=(30,0),pady=(30,0))
 
             self.txtsiteInput = Entry(self.master,text=self.siteInput,font=('Helvetica',16),fg='black',bg='lightblue')
-            self.txtsiteInput.grid(row=0,column=1,padx=(30,0),pady=(30,0))
+            self.txtsiteInput.grid(row=1,column=1,padx=(30,0),pady=(30,0))
 
             self.btnSubmit = Button(self.master,text='Submit', width=6, height=2, command=self.submit)
             self.btnSubmit.grid(row=2,column=1,padx=(0,0),pady=(30,0), sticky=NE)
