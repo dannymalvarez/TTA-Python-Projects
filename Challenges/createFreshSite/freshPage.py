@@ -37,15 +37,16 @@ class ParentWindow(Frame):
 
     def submit(self):
         info = self.txtsiteInput.get() #setting a variable equal to the input
-        f = open(place,'w') #opening a new tab with the hard coded file name that opens a file or creates it 
+        f = open('newPage.html','w') #opening a new tab with the hard coded file name that opens a file or creates it 
         f.write('<html><body><h1>'+info+'</h1></body></html>')#inserting the input to the html code for display
-        f.close() #closing the file 
-        wb.get('chrome').open(place) #open the file absolute path in specified browser
+        f.close() #closing the file
+        place = os.getcwd()
+        final = 'file://' + place + '/newPage.html'
+        wb.open(final) #open the file absolute path in specified browser
 
     def cancel(self): #closing method
         self.master.destroy()
 
-place = os.getcwd()
 
 '''
 go = 'newPage.html' #at the moment this is essentially hardcoded to my local hard drive.
