@@ -20,18 +20,22 @@ class ParentWindow(Frame):
   
         self.varEmpty1 = tk.StringVar()
         self.varEmpty2 = tk.StringVar()
+        self.varEmpty3 = tk.StringVar()
         
         self.varEmpty2.set('')
 
-        self.txtEmpty1 = tk.Entry(self.master,text=self.varEmpty1,font=("Helvetica", 28),fg='black',bg='white')
+        self.txtEmpty1 = tk.Entry(self.master,text=self.varEmpty1,font=("Helvetica", 25),fg='black',bg='white')
         self.txtEmpty1.grid(row=0,column=1,padx = (0,20),pady=(30,0),columnspan=2,sticky=tk.E+W)
 
-        self.txtEmpty2 = tk.Entry(self.master,text=self.varEmpty2,font=("Helvetica", 28),fg='black',bg='white')
+        self.txtEmpty2 = tk.Entry(self.master,text=self.varEmpty2,font=("Helvetica", 25),fg='black',bg='white')
         self.txtEmpty2.grid(row=1,column=1,padx = (0,20),pady=(15,0),columnspan=2,sticky=tk.E+W)
+
+        self.txtEmpty3 = tk.Entry(self.master,text=self.varEmpty3,font=("Helvetica", 25),fg='black',bg='white')
+        self.txtEmpty3.grid(row=2,column=1,padx = (0,20),pady=(15,0),sticky=tk.E+W)
 
         self.button1 = tk.Button(self.master, text = "Browse...", width = 10,height=2)
         b1 = self.button1
-        b1.grid(row = 0, column = 0,padx=(20,0),pady=(30,0),sticky=tk.W)
+        b1.grid(row = 0, column = 0,padx=(20,10),pady=(30,0),sticky=tk.W)
 
         self.button2 = tk.Button( self.master, text = "Browse...", width = 10,height=2)
         b2 = self.button2
@@ -47,11 +51,11 @@ class ParentWindow(Frame):
 
     def callback(self):
         name = fd.askdirectory() 
-        self.varEmpty1.set(name)
+        self.varEmpty3.set(name)
 
 
     def close(self):
-        self.destroy()
+        self.master.destroy()
         
 if __name__ == '__main__':
     root = Tk()
