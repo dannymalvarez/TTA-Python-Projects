@@ -72,10 +72,14 @@ class ParentWindow(Frame):
         currentMonth = now.strftime('%m')
         currentYear = now.strftime('%Y')
 
-        files = os.listdir(self.varEmpty1.get())
+        source = self.varEmpty1.get()
+        files = os.listdir(source)
+        destination = self.varEmpty2.get()
+        print(files)
+        print(destination)
 
         for i in files:
-            modTime = (time.ctime(os.path.getmtime(i)))
+            modTime = (time.ctime(os.path.getmtime(source+"/"+i)))
             modTimeObj = datetime.strptime(modTime, '%a %b %d %H:%M:%S %Y')
             modTimeHour = modTimeObj.strftime("%I")
             modTimeDay = modTimeObj.strftime("%d")
@@ -84,7 +88,7 @@ class ParentWindow(Frame):
 
             if currentYear == modTimeYear and currentMonth == modTimeMonth and currentDay == modTimeDay and currentHour and modTimeHour:
                 self.varEmpty3.set('Files transferred.')
-                shutil.move((files+i),self.varEmpty2.get())
+                shutil.move(source+"/"+i,destination)
             else:
                 self.varEmpty3.set('There were no files to transfer')
 
