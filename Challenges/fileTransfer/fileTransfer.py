@@ -57,12 +57,12 @@ class ParentWindow(Frame):
         self.varEmpty1.set(sourcePath)
 
 
-
 #set the destination path to folderB
         
     def destination(self):
         destinationPath = fd.askdirectory()
         self.varEmpty2.set(destinationPath)
+
 
 
     def check(self):
@@ -72,10 +72,10 @@ class ParentWindow(Frame):
         currentMonth = now.strftime('%m')
         currentYear = now.strftime('%Y')
 
-        files = os.listdir(sourcePath)
+        files = os.listdir(self.varEmpty1.get())
 
         for i in files:
-            modTime = (time.ctime(os.path.getmtime(+i)))
+            modTime = (time.ctime(os.path.getmtime(i)))
             modTimeObj = datetime.strptime(modTime, '%a %b %d %H:%M:%S %Y')
             modTimeHour = modTimeObj.strftime("%I")
             modTimeDay = modTimeObj.strftime("%d")
@@ -83,10 +83,10 @@ class ParentWindow(Frame):
             modTimeYear = modTimeObj.strftime("%Y")
 
             if currentYear == modTimeYear and currentMonth == modTimeMonth and currentDay == modTimeDay and currentHour and modTimeHour:
-                self.varEmpty2.set('Files transferred.')
-                shutil.move(source+i,self.varEmpty2)
+                self.varEmpty3.set('Files transferred.')
+                shutil.move((files+i),self.varEmpty2.get())
             else:
-                self.varEmpty2.set('There were no files to transfer')
+                self.varEmpty3.set('There were no files to transfer')
 
 
     def close(self):
