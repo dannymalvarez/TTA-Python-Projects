@@ -77,6 +77,7 @@ class ParentWindow(Frame):
         destination = self.varEmpty2.get()
         print(files)
         print(destination)
+        print(source)
 
         for i in files:
             modTime = (time.ctime(os.path.getmtime(source+"/"+i)))
