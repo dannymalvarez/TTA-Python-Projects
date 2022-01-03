@@ -5,5 +5,8 @@ from django.urls import path
 from .import views
 
 urlpatterns = [
-    path('admin_console', views.admin_console, name="admin_console"),
+    path('', views.home, name="home"),
+    path('admin/', admin.site.urls),
+    path('', include('Classes.urls')),
 ]
+urlpatterns += staticfiles_urlpatterns()
