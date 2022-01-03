@@ -6,5 +6,5 @@ I think it's important to find ways to enjoy things you may nto like so much bec
 Creating GUIs was fascinating because I don't consider myself a very creative/expressive person, so I tend to not try to be visually creative. But creating GUIs, while I am far from mastering it, gives me an opportunity to create something visually that isn't affected by how well or poorly I can draw!
 
 Some projects include:
-- Phonebook & Student Tracking: GUIs
-- Checkbook & Django University: Django
+- Phonebook & Student Tracking: GUIs that take and store information which can be retrieved.
+- Checkbook & Django University: Using Django to create a UI on a site for users to store and retrieve data.
