@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from boards import views
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path(r'^$', views.home, name='home'),
+    path(r'^admin/', admin.site.urls),
 ]
